@@ -1,6 +1,6 @@
 "use strict"
 
-
+// the entry data
 const notesList = [
     {
         id: 1,
@@ -60,7 +60,7 @@ function filterBySearch(searchWord , data){
 // 4.define the main function
 function queryData({data, sortType = "none", searchFilter = "none", status = "all"}) {
     let sortedDataByDate =  sortData(sortType, data)
-    let sortedDataByStatus =  filterByStatus(status, sortedDataByDate)
+    let sortedDataByStatus =  filterByStatus(status, sortedDataByDate ?? data)
     return   filterBySearch(searchFilter , sortedDataByStatus)
 }
 
@@ -68,8 +68,8 @@ function queryData({data, sortType = "none", searchFilter = "none", status = "al
 let filteredData = queryData(
     {
         data: notesList,
-        searchFilter:"coding",      //anything
-        sortType: "ascending",   //ascending/descending/none
-        status: "all"            // all / completed / uncompleted
+        searchFilter:"none",      // none / could be anything
+        sortType: "aa",   //ascending/descending/none
+        status: "aaa"            // all / completed / uncompleted
     })
 filteredData!==undefined && console.log(filteredData)
