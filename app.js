@@ -69,7 +69,7 @@ let filteredData = queryData(
     {
         data: notesList,
         searchFilter:"none",      // none / could be anything
-        sortType: "aa",   //ascending/descending/none
-        status: "aaa"            // all / completed / uncompleted
+        sortType: "none",   //ascending/descending/none
+        status: "all"            // all / completed / uncompleted
     })
 filteredData!==undefined && console.log(filteredData)
