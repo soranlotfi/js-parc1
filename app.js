@@ -34,8 +34,8 @@ function sortData(sortType, data) {
     }
     if (sortType === "descending" || sortType === "ascending") {
         return data.sort((a, b) => {
-            a = new Date(a.createdAt)
-            b = new Date(b.createdAt)
+            a = new Date(a.createdAt).getTime()
+            b = new Date(b.createdAt).getTime()
             return sortType === "ascending" ? (a - b) : (b - a)
         })
     }
@@ -55,21 +55,30 @@ function filterByStatus(status, data) {
 }
 //3.filter data based on their names
 function filterBySearch(searchWord , data){
-    return searchWord==="none"? data : data.filter(item => item.title.toLowerCase().includes(searchWord))
+    return searchWord==="none"? data : [...data].filter(item => item.title.toLowerCase().includes(searchWord.toLowerCase().trim()))
 }
 // 4.define the main function
-function queryData({data, sortType = "none", searchFilter = "none", status = "all"}) {
-    let sortedDataByDate =  sortData(sortType, data)
-    let sortedDataByStatus =  filterByStatus(status, sortedDataByDate ?? data)
-    return   filterBySearch(searchFilter , sortedDataByStatus)
+function queryData(data,{ sortType = "none", searchFilter = "none", status = "all"}) {
+    let filteredData;
+    filteredData = filterBySearch(searchFilter , data)
+    filteredData =  filterByStatus(status , filteredData)
+    filteredData =  sortData(sortType, filteredData)
+    return filteredData
 }
 
 // invoke the function
 let filteredData = queryData(
+    notesList,
     {
-        data: notesList,
-        searchFilter:"none",      // none / could be anything
-        sortType: "none",   //ascending/descending/none
-        status: "all"            // all / completed / uncompleted
+        searchFilter:"co",      // none / could be anything
+        sortType: "descending",   //ascending/descending/none
+        status: "uncompleted"            // all / completed / uncompleted
     })
 filteredData!==undefined && console.log(filteredData)
+console.log(notesList)
+
+
+
+//notes :
+//use switch case in status section
+//prevent over engineering
